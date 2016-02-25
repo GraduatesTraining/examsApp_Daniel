@@ -1,0 +1,14 @@
+{
+  "generator-ng-poly": {
+    "appScript": "coffee",
+    "controllerAs": true,
+    "directiveTemplateUrl": true,
+    "e2eTestFramework": "mocha",
+    "markup": "jade",
+    "ngRoute": false,
+    "structure": "module-only",
+    "style": "scss",
+    "testFramework": "mocha",
+    "testScript": "coffee"
+  }
+}
