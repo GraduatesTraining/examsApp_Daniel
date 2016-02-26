@@ -1,15 +1,15 @@
 'use strict';
 
-var _ = require('lodash')
-  , buildConfig = require('./build.config')
-  , config = {}
-  , gulp = require('gulp')
-  , gulpFiles = require('require-dir')('./gulp')
-  , path = require('path')
-  , $, key;
+var _ = require('lodash'),
+    buildConfig = require('./build.config'),
+    config = {},
+    gulp = require('gulp'),
+    gulpFiles = require('require-dir')('./gulp'),
+    path = require('path'),
+    $, key;
 
 $ = require('gulp-load-plugins')({
-  pattern: [
+    pattern: [
   'browser-sync',
   'del',
   'gulp-*',
@@ -48,12 +48,12 @@ config.e2eFiles = path.join('e2e', '**/*.coffee');
 config.unitTestFiles = path.join(config.unitTestDir, '**/*_test.coffee');
 
 for (key in gulpFiles) {
-  gulpFiles[key](gulp, $, config);
+    gulpFiles[key](gulp, $, config);
 }
 
 gulp.task('dev', ['build'], function () {
-  gulp.start('browserSync');
-  gulp.start('watch');
+    gulp.start('browserSync');
+    gulp.start('watch');
 });
 
 gulp.task('default', ['dev']);

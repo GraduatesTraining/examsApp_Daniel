@@ -3,4 +3,4 @@
 angular
   .module 'cognizantExamTest'
   .config ($urlRouterProvider) ->
-    $urlRouterProvider.otherwise '/home'
+    $urlRouterProvider.otherwise '/login'

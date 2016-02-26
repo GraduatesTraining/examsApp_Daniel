@@ -7,6 +7,6 @@
 
 ###
 angular
-  .module 'home', [
+  .module 'login', [
     'ui.router'
   ]

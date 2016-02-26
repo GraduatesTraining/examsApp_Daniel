@@ -1,9 +1,9 @@
 ###global element, By###
 'use strict'
 
-class HomePage
+class MainPage
   constructor: ->
     @text = element By.tagName('p')
     @heading = element By.tagName('h2')
 
-module.exports = HomePage
+module.exports = MainPage
