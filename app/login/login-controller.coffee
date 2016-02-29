@@ -16,6 +16,8 @@ class Controller
     
   submit: ->
     @submitted = true
+    @error = ''
+    @success = ''
     @messageError = false
     @messageSuccess = false
     if @registerCheck

@@ -8,10 +8,10 @@ md-content(ng-controller="loginController as login" layout-padding)
             input(ng-model="login.user.email" type="email" required)
         md-input-container.md-block
             label Password
-            input(ng-model="login.user.password" type="password" required)
+            input(ng-model="login.user.password" pattern=".{5,10}" type="password" required title="Password length must be 5 to 10 characters")
         div(layout="row")
-            md-button.md-raised(ng-hide="login.registerCheck" type="submit" aria-label="Login") Login
-            md-button.md-raised(ng-show="login.registerCheck" type="submit" aria-label="Register") Register
+            md-button.md-raised(name="loginButton" ng-hide="login.registerCheck" type="submit" aria-label="Login") Login
+            md-button.md-raised(name="registerButton" ng-show="login.registerCheck" type="submit" aria-label="Register") Register
             md-checkbox.md-primary(ng-model="login.registerCheck" md-no-ink) Register
         md-progress-linear(ng-show="login.submitted" md-mode="indeterminate")
         div.error(md-whiteframe="2" ng-model="login.error" ng-show="login.messageError" layout layout-align="center center")
