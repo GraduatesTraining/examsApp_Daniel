@@ -8,6 +8,8 @@
 angular
   .module 'cognizantExamTest', [
     'ngMaterial',
+    'firebase',
     'ui.router',
-    'home'
+    'login',
+    'main'
   ]

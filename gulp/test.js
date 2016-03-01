@@ -8,70 +8,79 @@ karmaConf.files = [
 ];
 
 module.exports = function (gulp, $, config) {
-  gulp.task('clean:test', function (cb) {
-    return $.del(config.buildTestDir, cb);
-  });
+    gulp.task('clean:test', function (cb) {
+        return $.del(config.buildTestDir, cb);
+    });
 
-  gulp.task('buildTests', ['lint', 'clean:test'], function () {
-    return gulp.src([config.unitTestFiles])
-      .pipe($.coffee())
-      .pipe(gulp.dest(config.buildUnitTestsDir));
-  });
+    gulp.task('buildTests', ['lint', 'clean:test'], function () {
+        return gulp.src([config.unitTestFiles])
+            .pipe($.coffee())
+            .pipe(gulp.dest(config.buildUnitTestsDir));
+    });
 
-  // inject scripts in karma.config.js
-  gulp.task('karmaFiles', ['build', 'buildTests'], function () {
-    var stream = $.streamqueue({objectMode: true});
+    // inject scripts in karma.config.js
+    gulp.task('karmaFiles', ['build', 'buildTests'], function () {
+        var stream = $.streamqueue({
+            objectMode: true
+        });
 
-    // add bower javascript
-    stream.queue(gulp.src($.wiredep({
-      devDependencies: true
-    }).js));
+        // add bower javascript
+        stream.queue(gulp.src($.wiredep({
+            devDependencies: true
+        }).js));
 
-    // add application templates
-    stream.queue(gulp.src([config.buildTestDirectiveTemplateFiles]));
+        // add application templates
+        stream.queue(gulp.src([config.buildTestDirectiveTemplateFiles]));
 
-    // add application javascript
-    stream.queue(gulp.src([
+        // add application javascript
+        stream.queue(gulp.src([
       config.buildJsFiles,
       '!**/*_test.*'
     ])
-      .pipe($.angularFilesort()));
+            .pipe($.angularFilesort()));
 
-    // add unit tests
-    stream.queue(gulp.src([config.buildUnitTestFiles]));
+        // add unit tests
+        stream.queue(gulp.src([config.buildUnitTestFiles]));
 
-    return stream.done()
-      .on('data', function (file) {
-        karmaConf.files.push(file.path);
-      });
-  });
+        return stream.done()
+            .on('data', function (file) {
+                karmaConf.files.push(file.path);
+            });
+    });
 
-  // run unit tests
-  gulp.task('unitTest', ['lint', 'karmaFiles'], function (done) {
-    var server = new $.karma.Server(karmaConf, done);
-    server.start();
-  });
+    // run unit tests
+    gulp.task('unitTest', ['lint', 'karmaFiles'], function (done) {
+        var server = new $.karma.Server(karmaConf, function (errorCode) {
+            if (errorCode !== 0) {
+                console.log('Karma exited with error code ' + errorCode);
+                done();
+                return process.exit(errorCode);
+            }
+            done();
+        });
+        server.start();
+    });
 
-  gulp.task('build:e2eTest', function () {
-    return gulp.src([config.e2eFiles])
-      .pipe($.coffee())
-      .pipe(gulp.dest(config.buildE2eTestsDir));
-  });
+    gulp.task('build:e2eTest', function () {
+        return gulp.src([config.e2eFiles])
+            .pipe($.coffee())
+            .pipe(gulp.dest(config.buildE2eTestsDir));
+    });
 
-  // run e2e tests - SERVER MUST BE RUNNING FIRST
-  gulp.task('e2eTest', ['lint', 'build:e2eTest'], function () {
-    return gulp.src(config.buildE2eTests)
-      .pipe($.protractor.protractor({
-        configFile: 'protractor.config.js'
-      }))
-      .on('error', function (e) {
-        console.log(e);
-      });
-  });
+    // run e2e tests - SERVER MUST BE RUNNING FIRST
+    gulp.task('e2eTest', ['lint', 'build:e2eTest'], function () {
+        return gulp.src(config.buildE2eTests)
+            .pipe($.protractor.protractor({
+                configFile: 'protractor.config.js'
+            }))
+            .on('error', function (e) {
+                console.log(e);
+            });
+    });
 
-  // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
-  /* jshint -W106 */
-  gulp.task('webdriverUpdate', $.protractor.webdriver_update);
-  /* jshint +W106 */
-  // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
+    // jscs:disable requireCamelCaseOrUpperCaseIdentifiers
+    /* jshint -W106 */
+    gulp.task('webdriverUpdate', $.protractor.webdriver_update);
+    /* jshint +W106 */
+    // jscs:enable requireCamelCaseOrUpperCaseIdentifiers
 };
