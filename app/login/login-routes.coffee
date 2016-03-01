@@ -9,3 +9,4 @@ angular
         templateUrl: 'login/login.tpl.html'
         controller: 'loginController'
         controllerAs: 'login'
+        authenticate: false

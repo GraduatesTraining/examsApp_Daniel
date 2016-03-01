@@ -4,7 +4,6 @@
 chai = require 'chai'
 chaiAsPromised = require 'chai-as-promised'
 expect = chai.expect
-assert= chai.assert
 LoginPagePo = require './login.po'
 
 chai.use chaiAsPromised

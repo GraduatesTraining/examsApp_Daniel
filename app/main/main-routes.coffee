@@ -7,5 +7,6 @@ angular
       .state 'main',
         url: '/main'
         templateUrl: 'main/main.tpl.html'
-        controller: 'MainCtrl'
+        controller: 'mainController'
         controllerAs: 'main'
+        authenticate: true

@@ -11,5 +11,8 @@ angular
     'firebase',
     'ui.router',
     'login',
-    'main'
+    'main',
+    'settings',
+    'exams',
+    'stats'
   ]

@@ -14,14 +14,23 @@ class Service
     
   logout: ->
     @auth.$unauth()
+    
+  isLoggedIn: ->
+    if @auth.$getAuth() isnt null
+      return true
+    else
+      return false
         
   login: (user) ->
     @auth.$authWithPassword(user)
     
   register: (user) ->
     @auth.$createUser(user)
+    
+  loginData: ->
+    @auth.$getAuth().password
 
 
 angular
-  .module('login')
+  .module('cognizantExamTest')
   .service 'authService', ['$firebaseAuth', Service]

@@ -2,7 +2,7 @@
 
 class Controller
     
-  constructor: (@authService) ->
+  constructor: (@authService, @$state) ->
     @user = {
       email: ''
       password: ''
@@ -59,6 +59,7 @@ class Controller
     @authService.login(@user)
       .then(=>
         @submitted = false
+        @$state.go 'main'
         return
       )
       .catch((error) =>
@@ -71,4 +72,4 @@ class Controller
 
 angular
   .module('login')
-  .controller 'loginController', ['authService', Controller]
+  .controller 'loginController', ['authService', '$state', Controller]
