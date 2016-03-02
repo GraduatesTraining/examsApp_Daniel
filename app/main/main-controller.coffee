@@ -4,6 +4,7 @@ class Controller
   constructor: (@authService, @$state) ->
     @email = @authService.loginData().email
     @originatorEv = null
+    @toolbar = false
     
   openMenu: ($mdOpenMenu, ev) =>
     @originatorEv = ev

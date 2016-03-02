@@ -1,26 +1,4 @@
-md-toolbar(ng-controller="mainController as main")
-    div.md-toolbar-tools
-        md-menu(flex)
-            md-button(name="userButton" aria-label="User options" ng-click="main.openMenu($mdOpenMenu, $event)")
-                md-icon.icons(md-menu-align-target md-svg-src="../images/ic_account_box_white_24px.svg" alt="Exams" title="Exams")
-            md-menu-content(width="4")
-                md-menu-item
-                    span(name="userEmail") {{main.email}}
-                md-menu-divider
-                md-menu-item
-                    md-button(name="logOutButton" aria-label="Logout" ng-click="main.logOut()")
-                        md-icon.icons(md-menu-align-target md-svg-src="../images/ic_power_settings_new_black_24px.svg" alt="Logout")
-                        span Logout
-                md-menu-item
-                    md-button(name="settingsButton" aria-label="Settings" href="#settings")
-                        md-icon.icons(md-menu-align-target md-svg-src="../images/ic_settings_black_24px.svg" alt="Settings")
-                        span Settings
-        div(flex)
-            md-button(name="examsButton" aria-label="Exams" href="#exams")
-                md-icon.icons(md-svg-src="../images/ic_assignment_white_24px.svg" alt="Exams" title="Exams")
-        div(flex)
-            md-button(name="statsButton" aria-label="Stats" href="#stats")
-                md-icon.icons(md-svg-src="../images/ic_assessment_white_24px.svg" alt="Stats" title="Stats")
+div(ng-include="'main/toolbar.tpl.html'")
 
 md-content
     span SETTINGS
