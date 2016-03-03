@@ -15,6 +15,5 @@ describe 'Settings page', ->
     settingsPage = new SettingsPagePo
     browser.get '/#/settings'
 
-  it 'should say SettingsCtrl', ->
-    expect(settingsPage.heading.getText()).to.eventually.equal 'settings'
-    expect(settingsPage.text.getText()).to.eventually.equal 'SettingsCtrl'
+  it 'should have title saying Settings', ->
+    expect(settingsPage.heading.getText()).to.eventually.equal 'Settings'

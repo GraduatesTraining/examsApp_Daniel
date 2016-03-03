@@ -3,6 +3,7 @@
 class Controller
   constructor: (@authService, @$state) ->
     @email = @authService.loginData().email
+    @image = @authService.loginData().profileImageURL
     @originatorEv = null
     @toolbar = false
     

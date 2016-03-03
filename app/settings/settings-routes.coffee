@@ -7,5 +7,5 @@ angular
       .state 'settings',
         url: '/settings'
         templateUrl: 'settings/settings.tpl.html'
-        controller: 'SettingsCtrl'
+        controller: 'settingsController'
         controllerAs: 'settings'

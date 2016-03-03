@@ -3,8 +3,9 @@ md-toolbar(ng-controller="mainController as main")
         md-menu(flex)
             md-button(name="userButton" aria-label="User options" ng-click="main.openMenu($mdOpenMenu, $event)")
                 md-icon.icons(md-menu-align-target md-svg-src="../images/ic_account_box_white_24px.svg" alt="Exams" title="Exams")
-            md-menu-content(width="4")
+            md-menu-content(width="2")
                 md-menu-item
+                    img.avatar(src="{{main.image}}")
                     span(name="userEmail") {{main.email}}
                 md-menu-divider
                 md-menu-item

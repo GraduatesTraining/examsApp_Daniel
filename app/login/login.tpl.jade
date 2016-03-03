@@ -13,8 +13,8 @@ md-content(ng-controller="loginController as login" layout-padding)
             md-button.md-raised(name="loginButton" ng-hide="login.registerCheck" type="submit" aria-label="Login") Login
             md-button.md-raised(name="registerButton" ng-show="login.registerCheck" type="submit" aria-label="Register") Register
             md-checkbox.md-primary(ng-model="login.registerCheck" md-no-ink) Register
-        md-progress-linear(ng-show="login.submitted" md-mode="indeterminate")
-        div.error(md-whiteframe="2" ng-model="login.error" ng-show="login.messageError" layout layout-align="center center")
-            span {{login.error}}
-        div.success(md-whiteframe="2" ng-model="login.success" ng-show="login.messageSuccess" layout layout-align="center center")
-            span {{login.success}}
+        md-progress-linear(ng-show="login.loginStatus.submit" md-mode="indeterminate")
+        div.error(md-whiteframe="2" ng-model="login.loginStatus.message" ng-show="login.loginStatus.error" layout layout-align="center center")
+            span {{login.loginStatus.message}}
+        div.success(md-whiteframe="2" ng-show="login.loginStatus.success" layout layout-align="center center")
+            span Success!

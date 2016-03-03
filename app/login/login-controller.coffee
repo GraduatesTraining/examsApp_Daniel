@@ -2,55 +2,31 @@
 
 class Controller
     
-  constructor: (@authService, @$state) ->
+  constructor: (@authService, @messageService, @$state) ->
     @user = {
       email: ''
       password: ''
     }
     @registerCheck = false
-    @submitted = false
-    @error = ''
-    @success = ''
-    @messageError = false
-    @messageSuccess = false
+    @loginStatus = @messageService.newEv()
     
   submit: ->
-    @submitted = true
-    @error = ''
-    @success = ''
-    @messageError = false
-    @messageSuccess = false
+    @loginStatus.start()
     if @registerCheck
       @register()
     else
       @login()
-        
-  parseError: (error) ->
-    switch error
-      when 'INVALID_EMAIL'
-        return 'The specified user account email is invalid.'
-      when 'INVALID_PASSWORD'
-        return 'The specified user account password is incorrect.'
-      when 'INVALID_USER'
-        return 'The specified user account does not exist.'
-      when 'EMAIL_TAKEN'
-        return 'The specified user account email is already taken.'
-      else
-        return 'Error logging user in.'
+    return
         
   register: ->
     @authService.register(@user)
       .then(=>
-        @submitted = false
-        @success = 'Registered successfully'
-        @messageSuccess = true
+        @loginStatus.stopOk()
         @login()
         return
       )
       .catch((error) =>
-        @submitted = false
-        @error = @parseError(error.code)
-        @messageError = true
+        @loginStatus.stopKo(@authService.parseError(error.code))
         return
       )
     return
@@ -58,18 +34,17 @@ class Controller
   login: ->
     @authService.login(@user)
       .then(=>
-        @submitted = false
+        @loginStatus.stopOk()
         @$state.go 'main'
         return
       )
       .catch((error) =>
-        @submitted = false
-        @error = @parseError(error.code)
-        @messageError = true
+        @loginStatus.stopKo(@authService.parseError(error.code))
         return
       )
     return
 
 angular
   .module('login')
-  .controller 'loginController', ['authService', '$state', Controller]
+  .controller 'loginController',
+    ['authService', 'messageService', '$state', Controller]
