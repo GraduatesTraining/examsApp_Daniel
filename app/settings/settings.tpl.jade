@@ -2,60 +2,78 @@ div(ng-include="'main/toolbar.tpl.html'")
 
 md-content(ng-controller="settingsController as settings" layout-padding)
     h2 Settings
-    hr
-    div(layout="row" layout-align="center center")
-        h3(flex) Change email
-        md-progress-linear(flex ng-show="settings.chMailStatus.submit" md-mode="indeterminate")
-        div.error(flex="100" md-whiteframe="2" ng-model="settings.chMailStatus.message" ng-show="settings.chMailStatus.error")
-            h4 Change email: {{settings.chMailStatus.message}}
-        div.success(flex="100" md-whiteframe="2" ng-show="settings.chMailStatus.success")
-            h4 Change email: Email changed successfully. Please log out to see the changes.
-    form(name="chMailForm" ng-submit="settings.changeEmail()" layout="column" layout-gt-sm="row")
-        md-input-container.md-block(flex)
-            label Old email
-            input(ng-model="settings.chMailData.oldEmail" type="email" required)
-        md-input-container.md-block(flex)
-            label New email
-            input(ng-model="settings.chMailData.newEmail" type="email" required)
-        md-input-container.md-block(flex)
-            label Password
-            input(ng-model="settings.chMailData.password" pattern=".{5,10}" type="password" required title="Password length must be 5 to 10 characters")
-        div(layout="row")
-        md-button.md-raised(type="submit" name="chMailBtn" arial-label="Change email") Change
-    hr
-    div(layout="row" layout-align="center center")
-        h3(flex) Change password
-        md-progress-linear(flex ng-show="settings.chPassStatus.submit" md-mode="indeterminate")
-        div.error(flex="100" md-whiteframe="2" ng-model="settings.chPassStatus.message" ng-show="settings.chPassStatus.error")
-            h4 Change password: {{settings.chPassStatus.message}}
-        div.success(flex="100" md-whiteframe="2" ng-show="settings.chPassStatus.success")
-            h4 Change password: Password changed successfully. Please log out to see the changes.
-    form(name="chPassForm" ng-submit="settings.changePassword()" layout="column" layout-gt-sm="row")
-        md-input-container.md-block(flex)
-            label Old password
-            input(ng-model="settings.chPassData.oldPassword" pattern=".{5,10}" type="password" title="Password length must be 5 to 10 characters" required)
-        md-input-container.md-block(flex)
-            label New password
-            input(ng-model="settings.chPassData.newPassword" pattern=".{5,10}" type="password" title="Password length must be 5 to 10 characters" required)
-        md-input-container.md-block(flex)
-            label Email
-            input(ng-model="settings.chPassData.email" type="email" required)
-        div(layout="row")
-        md-button.md-raised(type="submit" name="chPassBtn" arial-label="Change password") Change
-    hr
-    div(layout="row" layout-align="center center")
-        h3(flex) Delete account
-        md-progress-linear(flex ng-show="settings.dltAccStatus.submit" md-mode="indeterminate")
-        div.error(flex="100" md-whiteframe="2" ng-model="settings.dltAccStatus.message" ng-show="settings.dltAccStatus.error")
-            h4 Delete account: {{settings.dltAccStatus.message}}
-        div.success(flex="100" md-whiteframe="2" ng-show="settings.dltAccStatus.success")
-            h4 Delete account: Account deleted successfully.
-    form(name="dltAccForm" ng-submit="settings.deleteAccount()" layout="column" layout-gt-sm="row")
-        md-input-container.md-block(flex)
-            label Email
-            input(ng-model="settings.dltAccData.email" type="email" required)    
-        md-input-container.md-block(flex)
-            label Password
-            input(ng-model="settings.dltAccData.password" pattern=".{5,10}" type="password" title="Password length must be 5 to 10 characters" required)
-        div(layout="row")
-        md-button.md-raised.md-warn(type="submit" name="dltAccBtn" arial-label="Delete account") Delete
+    md-tabs(md-dynamic-height md-border-bottom)
+        md-tab(label="Profile")
+            md-content.md-padding
+                div(layout="row")
+                    h3 Profile
+                    md-checkbox.md-primary(aria-label="Edit profile" ng-model="settings.profile.modify" md-no-ink)
+                    div.error(flex="100" md-whiteframe="2" ng-model="settings.chMailStatus.message" ng-show="settings.chMailStatus.error")
+                        h4 Change email: {{settings.chMailStatus.message}}
+                    div.success(flex="100" md-whiteframe="2" ng-show="settings.chMailStatus.success")
+                        h4 Change email: Email changed successfully. Please log out to see the changes.
+                form(name="upProfileForm" ng-submit="settings.updateProfile()" layout="column" layout-gt-sm="row")
+                    md-input-container.md-block(flex)
+                        label Name
+                        input(ng-model="settings.profile.name" type="text" ng-disabled="settings.profile.modify")
+                    md-input-container.md-block(flex)
+                        label Last name
+                        input(ng-model="settings.profile.lastName" type="text" ng-disabled="settings.profile.modify")
+                    md-button.md-raised(type="submit" name="upProfileBtn" arial-label="Update" ng-disabled="settings.profile.modify") Update
+        md-tab(label="Change email")
+            md-content.md-padding
+                div(layout="row")
+                    h3 Change email
+                    md-progress-linear(flex ng-show="settings.chMailStatus.submit" md-mode="indeterminate")
+                    div.error(flex="100" md-whiteframe="2" ng-model="settings.chMailStatus.message" ng-show="settings.chMailStatus.error")
+                        h4 Change email: {{settings.chMailStatus.message}}
+                    div.success(flex="100" md-whiteframe="2" ng-show="settings.chMailStatus.success")
+                        h4 Change email: Email changed successfully. Please log out to see the changes.
+                form(name="chMailForm" ng-submit="settings.changeEmail()" layout="column" layout-gt-sm="row")
+                    md-input-container.md-block(flex)
+                        label Old email
+                        input(ng-model="settings.chMailData.oldEmail" type="email" required)
+                    md-input-container.md-block(flex)
+                        label New email
+                        input(ng-model="settings.chMailData.newEmail" type="email" required)
+                    md-input-container.md-block(flex)
+                        label Password
+                        input(ng-model="settings.chMailData.password" pattern=".{5,10}" type="password" required title="Password length must be 5 to 10 characters")
+                    md-button.md-raised(type="submit" name="chMailBtn" arial-label="Change email") Change            
+        md-tab(label="Change password")
+            md-content.md-padding
+                div(layout="row")
+                    h3 Change password
+                    md-progress-linear(flex ng-show="settings.chPassStatus.submit" md-mode="indeterminate")
+                    div.error(flex="100" md-whiteframe="2" ng-model="settings.chPassStatus.message" ng-show="settings.chPassStatus.error")
+                        h4 Change password: {{settings.chPassStatus.message}}
+                    div.success(flex="100" md-whiteframe="2" ng-show="settings.chPassStatus.success")
+                        h4 Change password: Password changed successfully. Please log out to see the changes.
+                form(name="chPassForm" ng-submit="settings.changePassword()" layout="column" layout-gt-sm="row")
+                    md-input-container.md-block(flex)
+                        label Old password
+                        input(ng-model="settings.chPassData.oldPassword" pattern=".{5,10}" type="password" title="Password length must be 5 to 10 characters" required)
+                    md-input-container.md-block(flex)
+                        label New password
+                        input(ng-model="settings.chPassData.newPassword" pattern=".{5,10}" type="password" title="Password length must be 5 to 10 characters" required)
+                    md-input-container.md-block(flex)
+                        label Email
+                        input(ng-model="settings.chPassData.email" type="email" required)
+                    md-button.md-raised(type="submit" name="chPassBtn" arial-label="Change password") Change            
+        md-tab(label="Delete account")
+            md-content.md-padding
+                div(layout="row")
+                    h3 Delete account
+                    md-progress-linear(flex ng-show="settings.dltAccStatus.submit" md-mode="indeterminate")
+                    div.error(flex="100" md-whiteframe="2" ng-model="settings.dltAccStatus.message" ng-show="settings.dltAccStatus.error")
+                        h4 Delete account: {{settings.dltAccStatus.message}}
+                    div.success(flex="100" md-whiteframe="2" ng-show="settings.dltAccStatus.success")
+                        h4 Delete account: Account deleted successfully.
+                form(name="dltAccForm" ng-submit="settings.deleteAccount()" layout="column" layout-gt-sm="row")
+                    md-input-container.md-block(flex)
+                        label Email
+                        input(ng-model="settings.dltAccData.email" type="email" required)    
+                    md-input-container.md-block(flex)
+                        label Password
+                        input(ng-model="settings.dltAccData.password" pattern=".{5,10}" type="password" title="Password length must be 5 to 10 characters" required)
+                    md-button.md-raised.md-warn(type="submit" name="dltAccBtn" arial-label="Delete account") Delete

@@ -1,7 +1,22 @@
 'use strict'
 
 class Controller
-  constructor: (@authService, @messageService) ->
+  constructor: (@authService, @profileService, @messageService) ->
+    @profile = {
+      name: ''
+      lastName: ''
+      modify: true
+    }
+    @profileService.getName(@authService.loginUid()).$loaded()
+      .then((name)=>
+        @profile.name = name.$value
+        return
+      )
+    @profileService.getlastName(@authService.loginUid()).$loaded()
+      .then((lastName)=>
+        @profile.lastName = lastName.$value
+        return
+      )
     @chMailData = {
       oldEmail: ''
       newEmail: ''
@@ -19,6 +34,10 @@ class Controller
     @chMailStatus = @messageService.newEv()
     @chPassStatus = @messageService.newEv()
     @dltAccStatus = @messageService.newEv()
+ 
+  updateProfile: ->
+    @profileService.updateUser(@profile, @authService.loginUid())
+    return
     
   changeEmail: ->
     @chMailStatus.start()
@@ -67,4 +86,4 @@ class Controller
 angular
   .module('settings')
   .controller 'settingsController',
-    ['authService', 'messageService', Controller]
+    ['authService', 'profileService', 'messageService', Controller]

@@ -2,8 +2,8 @@
 
 class Service
   constructor: (@firebaseAuth) ->
-    ref = new Firebase('https://flickering-heat-3627.firebaseio.com')
-    @auth = @firebaseAuth(ref)
+    url = 'https://flickering-heat-3627.firebaseio.com'
+    @auth = @firebaseAuth(new Firebase(url))
 
   parseError: (error) ->
     switch error
@@ -35,6 +35,9 @@ class Service
     
   loginData: ->
     @auth.$getAuth().password
+    
+  loginUid: ->
+    @auth.$getAuth().uid
     
   changeEmail: (data) ->
     @auth.$changeEmail(data)

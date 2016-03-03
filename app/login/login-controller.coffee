@@ -2,7 +2,7 @@
 
 class Controller
     
-  constructor: (@authService, @messageService, @$state) ->
+  constructor: (@authService, @profileService, @messageService, @state) ->
     @user = {
       email: ''
       password: ''
@@ -20,8 +20,9 @@ class Controller
         
   register: ->
     @authService.register(@user)
-      .then(=>
+      .then((authData)=>
         @loginStatus.stopOk()
+        @profileService.createUser(authData.uid)
         @login()
         return
       )
@@ -35,7 +36,7 @@ class Controller
     @authService.login(@user)
       .then(=>
         @loginStatus.stopOk()
-        @$state.go 'main'
+        @state.go 'main'
         return
       )
       .catch((error) =>
@@ -47,4 +48,4 @@ class Controller
 angular
   .module('login')
   .controller 'loginController',
-    ['authService', 'messageService', '$state', Controller]
+    ['authService', 'profileService', 'messageService', '$state', Controller]
