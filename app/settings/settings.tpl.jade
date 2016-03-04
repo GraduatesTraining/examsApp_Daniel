@@ -6,12 +6,8 @@ md-content(ng-controller="settingsController as settings" layout-padding)
         md-tab(label="Profile")
             md-content.md-padding
                 div(layout="row")
-                    h3 Profile
+                    h3(flex) Profile
                     md-checkbox.md-primary(aria-label="Edit profile" ng-model="settings.profile.modify" md-no-ink)
-                    div.error(flex="100" md-whiteframe="2" ng-model="settings.chMailStatus.message" ng-show="settings.chMailStatus.error")
-                        h4 Change email: {{settings.chMailStatus.message}}
-                    div.success(flex="100" md-whiteframe="2" ng-show="settings.chMailStatus.success")
-                        h4 Change email: Email changed successfully. Please log out to see the changes.
                 form(name="upProfileForm" ng-submit="settings.updateProfile()" layout="column" layout-gt-sm="row")
                     md-input-container.md-block(flex)
                         label Name
@@ -23,7 +19,7 @@ md-content(ng-controller="settingsController as settings" layout-padding)
         md-tab(label="Change email")
             md-content.md-padding
                 div(layout="row")
-                    h3 Change email
+                    h3(flex) Change email
                     md-progress-linear(flex ng-show="settings.chMailStatus.submit" md-mode="indeterminate")
                     div.error(flex="100" md-whiteframe="2" ng-model="settings.chMailStatus.message" ng-show="settings.chMailStatus.error")
                         h4 Change email: {{settings.chMailStatus.message}}
@@ -43,7 +39,7 @@ md-content(ng-controller="settingsController as settings" layout-padding)
         md-tab(label="Change password")
             md-content.md-padding
                 div(layout="row")
-                    h3 Change password
+                    h3(flex) Change password
                     md-progress-linear(flex ng-show="settings.chPassStatus.submit" md-mode="indeterminate")
                     div.error(flex="100" md-whiteframe="2" ng-model="settings.chPassStatus.message" ng-show="settings.chPassStatus.error")
                         h4 Change password: {{settings.chPassStatus.message}}
@@ -63,7 +59,7 @@ md-content(ng-controller="settingsController as settings" layout-padding)
         md-tab(label="Delete account")
             md-content.md-padding
                 div(layout="row")
-                    h3 Delete account
+                    h3(flex) Delete account
                     md-progress-linear(flex ng-show="settings.dltAccStatus.submit" md-mode="indeterminate")
                     div.error(flex="100" md-whiteframe="2" ng-model="settings.dltAccStatus.message" ng-show="settings.dltAccStatus.error")
                         h4 Delete account: {{settings.dltAccStatus.message}}

@@ -4,11 +4,7 @@
 describe 'mainController', ->
   ctrl = undefined
 
-  beforeEach module('main', 'firebase')
+  beforeEach module('main', 'cognizantExamTest', 'firebase')
 
-  beforeEach inject ($rootScope, $controller) ->
+  beforeEach inject (authService, $controller) ->
     ctrl = $controller 'mainController'
-
-  it 'should have properties initialized', ->
-    assert.isNull(ctrl.originatorEv)
-    assert.isString(ctrl.email)

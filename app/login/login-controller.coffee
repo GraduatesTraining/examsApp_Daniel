@@ -3,10 +3,9 @@
 class Controller
     
   constructor: (@authService, @profileService, @messageService, @state) ->
-    @user = {
+    @user =
       email: ''
       password: ''
-    }
     @registerCheck = false
     @loginStatus = @messageService.newEv()
     
@@ -16,7 +15,7 @@ class Controller
       @register()
     else
       @login()
-    return
+    undefined
         
   register: ->
     @authService.register(@user)
@@ -24,26 +23,26 @@ class Controller
         @loginStatus.stopOk()
         @profileService.createUser(authData.uid)
         @login()
-        return
+        undefined
       )
       .catch((error) =>
         @loginStatus.stopKo(@authService.parseError(error.code))
-        return
+        undefined
       )
-    return
+    undefined
     
   login: ->
     @authService.login(@user)
       .then(=>
         @loginStatus.stopOk()
         @state.go 'main'
-        return
+        undefined
       )
       .catch((error) =>
         @loginStatus.stopKo(@authService.parseError(error.code))
-        return
+        undefined
       )
-    return
+    undefined
 
 angular
   .module('login')

@@ -7,16 +7,15 @@ class Service
 
   parseError: (error) ->
     switch error
-      when 'INVALID_EMAIL'
-        return 'The specified user account email is invalid.'
-      when 'INVALID_PASSWORD'
-        return 'The specified user account password is incorrect.'
-      when 'INVALID_USER'
-        return 'The specified user account does not exist.'
-      when 'EMAIL_TAKEN'
-        return 'The specified user account email is already taken.'
-      else
-        return 'Error logging user in.'
+      when 'INVALID_EMAIL' then 'The specified
+                                 user account email is invalid.'
+      when 'INVALID_PASSWORD' then 'The specified
+                                    user account password is incorrect.'
+      when 'INVALID_USER' then 'The specified
+                                user account does not exist.'
+      when 'EMAIL_TAKEN' then 'The specified
+                               user account email is already taken.'
+      else 'Error logging user in.'
     
   logout: ->
     @auth.$unauth()

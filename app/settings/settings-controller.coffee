@@ -2,42 +2,38 @@
 
 class Controller
   constructor: (@authService, @profileService, @messageService) ->
-    @profile = {
+    @profile =
       name: ''
       lastName: ''
       modify: true
-    }
     @profileService.getName(@authService.loginUid()).$loaded()
       .then((name)=>
         @profile.name = name.$value
-        return
+        undefined
       )
-    @profileService.getlastName(@authService.loginUid()).$loaded()
+    @profileService.getLastName(@authService.loginUid()).$loaded()
       .then((lastName)=>
         @profile.lastName = lastName.$value
-        return
+        undefined
       )
-    @chMailData = {
+    @chMailData =
       oldEmail: ''
       newEmail: ''
       password: ''
-    }
-    @chPassData = {
+    @chPassData =
       email: ''
       oldPassword: ''
       newPassword: ''
-    }
-    @dltAccData = {
+    @dltAccData =
       email: ''
       password: ''
-    }
     @chMailStatus = @messageService.newEv()
     @chPassStatus = @messageService.newEv()
     @dltAccStatus = @messageService.newEv()
  
   updateProfile: ->
     @profileService.updateUser(@profile, @authService.loginUid())
-    return
+    undefined
     
   changeEmail: ->
     @chMailStatus.start()
@@ -49,10 +45,13 @@ class Controller
       @authService.changeEmail(@chMailData)
         .then(=>
           @chMailStatus.stopOk()
+          undefined
         )
         .catch((error)=>
           @chMailStatus.stopKo(@authService.parseError(error.code))
+          undefined
         )
+    undefined
     
   changePassword: ->
     @chPassStatus.start()
@@ -64,10 +63,13 @@ class Controller
       @authService.changePassword(@chPassData)
         .then(=>
           @chPassStatus.stopOk()
+          undefined
         )
         .catch((error)=>
           @chPassStatus.stopKo(@authService.parseError(error.code))
+          undefined
         )
+    undefined
     
   deleteAccount: ->
     @dltAccStatus.start()
@@ -77,10 +79,13 @@ class Controller
       @authService.deleteAccount(@dltAccData)
         .then(=>
           @dltAccStatus.stopOk()
+          undefined
         )
         .catch((error)=>
           @dltAccStatus.stopKo(@authService.parseError(error.code))
+          undefined
         )
+    undefined
     
 
 angular

@@ -12,6 +12,7 @@ class MessageObject
     @error = false
     @success = false
     @message = ''
+    undefined
     
   start: ->
     @reset()
@@ -19,19 +20,19 @@ class MessageObject
     @error = false
     @success = false
     @message = ''
-    return
+    undefined
     
   stopOk: ->
     @submit = false
     @success = true
     @error = false
-    return
+    undefined
     
   stopKo: (@message) ->
     @submit = false
     @success = false
     @error = true
-    return
+    undefined
 
 class Service
     
@@ -39,7 +40,6 @@ class Service
         
   newEv: ->
     @name = new MessageObject
-    return @name
 
 angular
   .module('cognizantExamTest')

@@ -6,9 +6,5 @@ describe 'SettingsCtrl', ->
 
   beforeEach module 'settings'
 
-  beforeEach inject ($rootScope, $controller) ->
+  beforeEach inject ($controller) ->
     ctrl = $controller 'SettingsCtrl'
-
-  it 'should have ctrlName as SettingsCtrl', ->
-    expect(ctrl.ctrlName).to.equal 'SettingsCtrl'
-

@@ -9,17 +9,19 @@ class Service
     @newUser.name = ''
     @newUser.lastName = ''
     @newUser.$save()
+    undefined
 
   updateUser: (userData, uid) ->
     @newUser = @firebaseObject(new Firebase(@url + '/' + uid))
     @newUser.name = userData.name
     @newUser.lastName = userData.lastName
     @newUser.$save()
+    undefined
     
   getName: (uid) ->
     @firebaseObject(new Firebase(@url + '/' + uid + '/name'))
     
-  getlastName: (uid) ->
+  getLastName: (uid) ->
     @firebaseObject(new Firebase(@url + '/' + uid + '/lastName'))
 
 angular

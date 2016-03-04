@@ -1,21 +1,20 @@
 'use strict'
 
 class Controller
-  constructor: (@authService, @$state) ->
+  constructor: (@authService, @state) ->
     @email = @authService.loginData().email
     @image = @authService.loginData().profileImageURL
     @originatorEv = null
-    @toolbar = false
     
   openMenu: ($mdOpenMenu, ev) =>
     @originatorEv = ev
     $mdOpenMenu(ev)
-    return
+    undefined
 
   logOut: ->
     @authService.logout()
-    @$state.go 'login'
-    return
+    @state.go 'login'
+    undefined
 
 angular
   .module('main')
