@@ -6,7 +6,7 @@ describe 'StatsCtrl', ->
 
   beforeEach module 'stats'
 
-  beforeEach inject ($rootScope, $controller) ->
+  beforeEach inject ($controller) ->
     ctrl = $controller 'StatsCtrl'
 
   it 'should have ctrlName as StatsCtrl', ->

@@ -6,7 +6,7 @@ describe 'ExamsCtrl', ->
 
   beforeEach module 'exams'
 
-  beforeEach inject ($rootScope, $controller) ->
+  beforeEach inject ($controller) ->
     ctrl = $controller 'ExamsCtrl'
 
   it 'should have ctrlName as ExamsCtrl', ->
