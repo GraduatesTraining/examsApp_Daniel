@@ -1,14 +1,10 @@
 ###global describe, beforeEach, it, expect, inject, module###
 'use strict'
 
-describe 'MainCtrl', ->
+describe 'mainController', ->
   ctrl = undefined
 
-  beforeEach module 'main'
+  beforeEach module('main', 'cognizantExamTest', 'firebase')
 
-  beforeEach inject ($rootScope, $controller) ->
-    ctrl = $controller 'MainCtrl'
-
-  it 'should have ctrlName as MainCtrl', ->
-    expect(ctrl.ctrlName).to.equal 'MainCtrl'
-
+  beforeEach inject (authService, $controller) ->
+    ctrl = $controller 'mainController'

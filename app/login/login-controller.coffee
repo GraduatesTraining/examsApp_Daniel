@@ -2,73 +2,49 @@
 
 class Controller
     
-  constructor: (@authService) ->
-    @user = {
+  constructor: (@authService, @profileService, @messageService, @state) ->
+    @user =
       email: ''
       password: ''
-    }
     @registerCheck = false
-    @submitted = false
-    @error = ''
-    @success = ''
-    @messageError = false
-    @messageSuccess = false
+    @loginStatus = @messageService.newEv()
     
   submit: ->
-    @submitted = true
-    @error = ''
-    @success = ''
-    @messageError = false
-    @messageSuccess = false
+    @loginStatus.start()
     if @registerCheck
       @register()
     else
       @login()
-        
-  parseError: (error) ->
-    switch error
-      when 'INVALID_EMAIL'
-        return 'The specified user account email is invalid.'
-      when 'INVALID_PASSWORD'
-        return 'The specified user account password is incorrect.'
-      when 'INVALID_USER'
-        return 'The specified user account does not exist.'
-      when 'EMAIL_TAKEN'
-        return 'The specified user account email is already taken.'
-      else
-        return 'Error logging user in.'
+    undefined
         
   register: ->
     @authService.register(@user)
-      .then(=>
-        @submitted = false
-        @success = 'Registered successfully'
-        @messageSuccess = true
+      .then((authData)=>
+        @loginStatus.stopOk()
+        @profileService.createUser(authData.uid)
         @login()
-        return
+        undefined
       )
       .catch((error) =>
-        @submitted = false
-        @error = @parseError(error.code)
-        @messageError = true
-        return
+        @loginStatus.stopKo(@authService.parseError(error.code))
+        undefined
       )
-    return
+    undefined
     
   login: ->
     @authService.login(@user)
       .then(=>
-        @submitted = false
-        return
+        @loginStatus.stopOk()
+        @state.go 'main'
+        undefined
       )
       .catch((error) =>
-        @submitted = false
-        @error = @parseError(error.code)
-        @messageError = true
-        return
+        @loginStatus.stopKo(@authService.parseError(error.code))
+        undefined
       )
-    return
+    undefined
 
 angular
   .module('login')
-  .controller 'loginController', ['authService', Controller]
+  .controller 'loginController',
+    ['authService', 'profileService', 'messageService', '$state', Controller]

@@ -1,16 +1,21 @@
 'use strict'
 
-###*
- # @ngdoc object
- # @name main.controller:MainCtrl
+class Controller
+  constructor: (@authService, @state) ->
+    @email = @authService.loginData().email
+    @image = @authService.loginData().profileImageURL
+    @originatorEv = null
+    
+  openMenu: ($mdOpenMenu, ev) =>
+    @originatorEv = ev
+    $mdOpenMenu(ev)
+    undefined
 
- # @description
-
-###
-class MainCtrl
-  constructor: ->
-    @ctrlName = 'MainCtrl'
+  logOut: ->
+    @authService.logout()
+    @state.go 'login'
+    undefined
 
 angular
   .module('main')
-  .controller 'MainCtrl', MainCtrl
+  .controller 'mainController', ['authService', '$state', Controller]
